@@ -1,0 +1,16 @@
+{
+    "languages": {
+        "Rust": {
+            "formatter": "language_server",
+        },
+    },
+    "lsp": {
+        "rust-analyzer": {
+            "initialization_options": {
+                "cargo": {
+                    "features": ["all"],
+                },
+            },
+        },
+    },
+}

@@ -1,0 +1,118 @@
+[workspace]
+members = ["commons"]
+default-members = ["commons"]
+resolver = "3"
+
+[workspace.package]
+description = "A statically-typed programming language for high-performance, numerical and scientific computing."
+version = "0.0.0"
+homepage = "https://github.com/nv0skar/kiban"
+repository = "https://github.com/nv0skar/kiban"
+edition = "2024"
+
+[workspace.dependencies]
+# kiban = { path = "./frontend" }
+
+kiban_commons = { path = "./commons" }
+
+
+rustyrosetta = { git = "https://github.com/nv0skar/RustyRosetta.git", tag = "rustyrosetta_0.0.4", features = [
+    "all",
+] }
+
+boxed_any = { git = "https://github.com/nv0skar/BoxedAny.git" }
+boxed_any_derive = { git = "https://github.com/nv0skar/BoxedAny.git" }
+
+tokio = "1.53"
+
+tokio-util = "0.7"
+
+futures = "0.3"
+
+serde = { version = "1.0.229", features = ["derive", "rc"] }
+toml = "1.1.6"
+serde_json = "1.0"
+serde_with = { version = "3.23", features = ["chrono"] }
+
+bytes = "1.12"
+
+hex = "0.4"
+
+chrono = { version = "0.4.45", default-features = false, features = [
+    "clock",
+    "serde",
+] }
+
+typetag = "0.2"
+async-trait = "0.1"
+dyn-clone = "1.0.20"
+
+# redb = "3.1.0"
+
+smallvec = { version = "1.16", features = ["serde", "write", "const_new"] }
+arrayvec = { version = "0.7", features = ["serde"] }
+stackalloc = "1"
+smallbox = "0.8"
+dashmap = { version = "6.2", features = ["serde"] }
+compact_str = { version = "0.10", features = ["serde"] }
+
+mimalloc = { version = "0.1.52", features = ["secure"] }
+
+rand = "0.10"
+
+crc32fast = "1.5"
+
+clap = { version = "4.6", features = ["derive"] }
+
+iocraft = "0.9"
+owo-colors = "4.4"
+
+regex = "1.13"
+
+tracing = "0.1"
+tracing-subscriber = "0.3"
+console-subscriber = "0.5"
+tracing-appender = "0.2"
+
+getset = "0.1"
+nestify = "0.3"
+either = { version = "1.19", features = ["serde"] }
+eyre = "0.6"
+color-eyre = "0.6"
+thiserror = "2.0.20"
+derive_builder = "0.20"
+derive_more = { version = "2.1", features = ["constructor", "display"] }
+
+[workspace.lints.rust]
+unexpected_cfgs = "deny"
+
+[workspace.dependencies.getrandom]
+version = "*"
+features = ["wasm_js"]
+
+# [package.metadata.wasm-pack.profile.profiling]
+# wasm-opt = false
+
+
+[patch."https://github.com/nv0skar/kiban"]
+kiban = { path = "./frontend" }
+
+kiban_commons = { path = "./commons" }
+
+[profile.dev.package."*"]
+debug = false
+codegen-units = 256
+opt-level = 1
+
+[profile.dev.package.backtrace]
+opt-level = 3
+
+[profile.release]
+debug = false
+strip = true
+codegen-units = 256
+lto = true
+opt-level = 's'
+
+[profile.dist]
+inherits = "release"
